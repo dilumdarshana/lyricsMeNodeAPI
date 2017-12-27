@@ -1,0 +1,26 @@
+{
+  "name": "lyricsme-api",
+  "version": "1.0.0",
+  "description": "API Node version for LyricsMe",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Lyrics",
+    "nodejs"
+  ],
+  "author": "Dilum Darshana",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongoose": "^4.13.7",
+    "morgan": "^1.9.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-env": "^0.4.0",
+    "gulp-nodemon": "^2.2.1"
+  }
+}
