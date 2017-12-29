@@ -1,3 +1,9 @@
+ /**
+  * This model use for mongodb. Use to define mongo table columns
+  * looks like this will work as active records
+  * mongoose has in-built validation for data types
+  */
+ 
  // import required packages
  const mongoose = require('mongoose');
 
@@ -5,9 +11,9 @@
  const lyricsSchema = mongoose.Schema({
 
     _id: mongoose.Schema.Types.ObjectId,
-    song: String,
+    song: { type: String, required: true },
 	video_url: String,
-	lyric: String
+	lyric: { type: String }
  });
 
  // export to use from outside

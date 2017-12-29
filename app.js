@@ -14,6 +14,9 @@ const lyricsRoutes = require('./api/routes/lyrics');
 // connect to mongodb
 mongoose.connect(config.dbConnection);
 
+// mongoose promise depricated. So, we use global
+mongoose.Promise = global.Promise;
+
 // log request activities as middleware. All the requests wil be print into the console.
 app.use(morgan('dev'));
 
@@ -44,7 +47,7 @@ app.use((req, res, next) => {
 });
 
 // lyrics routes
-app.use('/api/v1/lyrics', lyricsRoutes);
+app.use(`/api/${config.apiVersion}/lyrics`, lyricsRoutes);
 
 /*
  * Error handling for undefined route requests

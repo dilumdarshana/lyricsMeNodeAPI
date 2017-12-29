@@ -2,6 +2,7 @@
 const express = require('express');
 const Lyrics = require('./../models/lyrics');
 const mongoose = require('mongoose');
+const config = require('./../../config').local;
 
 // define express router
 const lyricsRoutes = express.Router();
@@ -15,12 +16,14 @@ lyricsRoutes.get('/search/:keyword', (req, res, next) => {
     Lyrics.find({
         song: new RegExp(keyword, 'i')
     })
+    .select('_id song video_url lyric')
     .limit(15)
     .exec()
     .then(results => {
         res.status(200).json({
             message: 'Lyrics search results',
             keyword: keyword,
+            records: results.length,
             lyrics: results
         });
     })
@@ -38,6 +41,7 @@ lyricsRoutes.get('/:lyricsId', (req, res, next) => {
     const lyricsId = req.params.lyricsId;
 
     Lyrics.findById(lyricsId)
+        .select('song video_url lyric')
         .exec()
         .then(results => {
 
@@ -79,7 +83,15 @@ lyricsRoutes.post('/', (req, res, next) => {
         .then(results => {
             res.status(200).json({
                 message: 'Lyric created successfully',
-                data: results
+                request: {
+                    method: 'GET',
+                    url: `${config.host}:${config.nodePort}/api/${config.apiVersion}/lyrics/${results._id}`
+                },
+                data: {
+                    song: results.song,
+                    video_url: results.video_url,
+                    lyric: results.lyric
+                }
             });
         })
         .catch(err =>  {
@@ -99,12 +111,13 @@ lyricsRoutes.patch('/:lyricsId', (req, res, next) => {
     for(const attr of req.body) {
         updateAttrs[attr.propName] = attr.value;
     }
+
     Lyrics
-        .update({_id: lyricsId}, { $set: {updateAttrs}})
+        .update({_id: lyricsId}, { $set: updateAttrs})
         .exec()
         .then(resutls => {
             res.status(200).json({
-                message: 'Lyric updated successfully',
+                message: `Lyric updated successfully. Song ID: ${lyricsId}`,
                 data: resutls
             });
         })
