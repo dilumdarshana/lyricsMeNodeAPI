@@ -9,6 +9,7 @@ const config = require('./config').local;
 const app = express();
 
 // import routers
+const authRoute = require('./api/routes/auth');
 const lyricsRoutes = require('./api/routes/lyrics');
 
 // connect to mongodb
@@ -45,6 +46,9 @@ app.use((req, res, next) => {
 
     next(); // ask to procceed the rest of the routes just in case
 });
+
+// authentication routes
+app.use('/api/auth', authRoute);
 
 // lyrics routes
 app.use(`/api/${config.apiVersion}/lyrics`, lyricsRoutes);

@@ -3,6 +3,8 @@ const express = require('express');
 const Lyrics = require('./../models/lyrics');
 const mongoose = require('mongoose');
 const config = require('./../../config').local;
+const jwt = require('jsonwebtoken');
+const helper = require('./../includes/helper');
 
 // define express router
 const lyricsRoutes = express.Router();
@@ -67,39 +69,50 @@ lyricsRoutes.get('/:lyricsId', (req, res, next) => {
 });
 
 // create a new lyric
-lyricsRoutes.post('/', (req, res, next) => {
+lyricsRoutes.post('/', helper.verifyToken, (req, res, next) => {
 
-    // catch request and bind data to the lyrics model
-    const lyrics = new Lyrics({
-        _id: new mongoose.Types.ObjectId(),
-        song: req.body.song_title,
-        video_url: req.body.video_url,
-        lyric: req.body.lyric
+    jwt.verify(req.token, config.jwtSalt, (error, authData) => {
+
+        if (error) {
+            res.status(403).json({
+                message: 'Invalid token'
+            });
+        } else {
+
+            // catch request and bind data to the lyrics model
+            const lyrics = new Lyrics({
+                _id: new mongoose.Types.ObjectId(),
+                song: req.body.song_title,
+                video_url: req.body.video_url,
+                lyric: req.body.lyric
+            });
+            
+            // save data
+            lyrics
+                .save()
+                .then(results => {
+                    res.status(200).json({
+                        message: 'Lyric created successfully',
+                        request: {
+                            method: 'GET',
+                            url: `${config.host}:${config.nodePort}/api/${config.apiVersion}/lyrics/${results._id}`
+                        },
+                        data: {
+                            song: results.song,
+                            video_url: results.video_url,
+                            lyric: results.lyric
+                        }
+                    });
+                })
+                .catch(err =>  {
+                    res.status(500).json({
+                        message: 'Lyric creation failed',
+                        error: err
+                    });
+                });
+        }
     });
     
-    // save data
-    lyrics
-        .save()
-        .then(results => {
-            res.status(200).json({
-                message: 'Lyric created successfully',
-                request: {
-                    method: 'GET',
-                    url: `${config.host}:${config.nodePort}/api/${config.apiVersion}/lyrics/${results._id}`
-                },
-                data: {
-                    song: results.song,
-                    video_url: results.video_url,
-                    lyric: results.lyric
-                }
-            });
-        })
-        .catch(err =>  {
-            res.status(500).json({
-                message: 'Lyric creation failed',
-                error: err
-            });
-        });
 });
 
 // update a lyrics for a given lyric id
