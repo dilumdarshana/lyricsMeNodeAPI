@@ -12,6 +12,8 @@ Usage of special npm packages
 
 - jsonwebtoken : JWT token for authentications
 
+- bcrypt : encrypt passwords
+
 - gulp-mocha should sinon : For Unit Testing
 
 - supertest gulp-env : For integration Testing

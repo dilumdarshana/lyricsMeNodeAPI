@@ -8,7 +8,7 @@ const config = {
         //dbConnection: 'mongodb://Lyrics-Me:$apache123@lyrics-me-shard-00-00-t4oqu.mongodb.net:27017,lyrics-me-shard-00-01-t4oqu.mongodb.net:27017,lyrics-me-shard-00-02-t4oqu.mongodb.net:27017/test?ssl=true&replicaSet=Lyrics-Me-shard-0&authSource=admin'
         
         jwtSalt: 'unkown',
-        accessTokenExpires: '30' // this must be in seconds
+        accessTokenExpires: '600' // this must be in seconds
     },
     staging: {
 
