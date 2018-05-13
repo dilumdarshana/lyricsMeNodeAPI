@@ -4,7 +4,7 @@
   "description": "API Node version for LyricsMe",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -t 6000 --require babel-register api/tests"
   },
   "keywords": [
     "Lyrics",
@@ -13,6 +13,7 @@
   "author": "Dilum Darshana",
   "license": "ISC",
   "dependencies": {
+    "babel": "^6.23.0",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
@@ -21,8 +22,11 @@
     "morgan": "^1.9.0"
   },
   "devDependencies": {
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
     "gulp": "^3.9.1",
     "gulp-env": "^0.4.0",
-    "gulp-nodemon": "^2.2.1"
+    "gulp-nodemon": "^2.2.1",
+    "mocha": "^5.1.1"
   }
 }
