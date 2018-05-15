@@ -9,9 +9,7 @@ const config = require('./config').local;
 const app = express();
 
 // import routers
-const authRoute = require('./api/routes/auth');
-const lyricsRoutes = require('./api/routes/lyrics');
-const administrationRoutes = require('./api/routes/administrator');
+const routes = require('./api/routes');
 
 // connect to mongodb
 mongoose.connect(config.dbConnection, { useMongoClient: true });
@@ -48,14 +46,8 @@ app.use((req, res, next) => {
     next(); // ask to procceed the rest of the routes just in case
 });
 
-// authentication routes
-app.use('/api/auth', authRoute);
-
-// administration routes
-app.use('/api/admin', administrationRoutes);
-
-// lyrics routes
-app.use(`/api/${config.apiVersion}/lyrics`, lyricsRoutes);
+// routes
+app.use('/api/v1/', routes);
 
 /*
  * Error handling for undefined route requests

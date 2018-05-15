@@ -1,21 +1,34 @@
+'use strict';
+
 // import required packages
 const mongoose = require('mongoose');
 
  // define artist schema
  const artistSchema = mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    image: {
+        type: String,
+        default: null
+    },
+    active: {
+        type: boolean,
+        default: true
+    },
+    date_updated: Date,
+    date_created: {
+        type: Date,
+        default: Date.now
+    }
+}, { collection: 'artists' });
+
+// on update
+artistSchema.pre('update', function (next) {
+    this.date_updated = new Date();
+    next();
+});
     
-        _id: mongoose.Schema.Types.ObjectId,
-        name: String,
-        image: String,
-        album: {
-            name: String,
-            year: String,
-            image: String,
-            lyrics: {
-                _id: mongoose.Types.ObjectId
-            }
-        }
-     });
-    
-     // export to use from outside
-     module.exports = mongoose.model('Lyrics', artistSchema);
+// export to use from outside
+module.exports = mongoose.model('Artist', artistSchema);

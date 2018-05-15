@@ -1,20 +1,44 @@
- /**
-  * This model use for mongodb. Use to define mongo table columns
-  * looks like this will work as active records
-  * mongoose has in-built validation for data types
-  */
+'use strict';
  
  // import required packages
  const mongoose = require('mongoose');
 
  // define lyrics schema
  const lyricsSchema = mongoose.Schema({
+    album_id: {
+        type: Schema.ObjectId,
+        ref: 'Album',
+        default: null
+    },
+    song_name: {
+        type: String,
+        required: true
+    },
+    lyric: {
+        type: String
+    },
+	video_url: {
+        type: String,
+        default: null
+    },
+	active: {
+        type: boolean,
+        default: true
+    },
+    date_updated: {
+        type: Date
+    },
+    date_created: {
+        type: Date,
+        default: Date.now
+    }
+ }, { collection: 'lyrics' });
 
-    _id: mongoose.Schema.Types.ObjectId,
-    song: { type: String, required: true },
-	video_url: String,
-	lyric: { type: String }
- });
+ // on update
+artistSchema.pre('update', function (next) {
+    this.date_updated = new Date();
+    next();
+});
 
  // export to use from outside
- module.exports = mongoose.model('lyrics', lyricsSchema);
+ module.exports = mongoose.model('Lyrics', lyricsSchema);

@@ -11,7 +11,7 @@ class artistContoller {
         res.status(200).json();
     }
 
-    getArtistById(req, res) {
+    getArtist(req, res) {
         res.status(200).json();
     }
 
