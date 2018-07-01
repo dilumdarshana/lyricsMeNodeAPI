@@ -1,7 +1,7 @@
 const config = {
 
     local: {
-        nodePort: 4000,
+        port: 4000,
         host: 'http://localhost',
         apiVersion: 'v1',
         dbConnection: 'mongodb://localhost/lyrics',

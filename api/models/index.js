@@ -1,9 +1,9 @@
-import artistModel from './artistModel';
-import artistModel from './albumModel';
-import lyricsModel from './lyricsModel';
+import ArtistModel from './ArtistModel';
+import AlbumModel from './AlbumModel';
+import LyricsModel from './LyricsModel';
 
-export default {
-    artistModel,
-    albumModel,
-    lyricsModel
+export {
+    ArtistModel,
+    AlbumModel,
+    LyricsModel
 }

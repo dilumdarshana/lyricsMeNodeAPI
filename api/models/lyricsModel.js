@@ -2,6 +2,7 @@
  
  // import required packages
  const mongoose = require('mongoose');
+ const { Schema } = mongoose;
 
  // define lyrics schema
  const lyricsSchema = mongoose.Schema({
@@ -22,7 +23,7 @@
         default: null
     },
 	active: {
-        type: boolean,
+        type: Boolean,
         default: true
     },
     date_updated: {
@@ -35,7 +36,7 @@
  }, { collection: 'lyrics' });
 
  // on update
-artistSchema.pre('update', function (next) {
+ lyricsSchema.pre('update', function (next) {
     this.date_updated = new Date();
     next();
 });

@@ -1,9 +1,9 @@
-import artistController from './artistController';
-import albumController from './albumController';
-import lyricsController from './lyricsController';
+import ArtistController from './ArtistController';
+import AlbumController from './AlbumController';
+import LyricsController from './LyricsController';
 
 export {
-    artistController,
-    albumController,
-    lyricsController
+    ArtistController,
+    AlbumController,
+    LyricsController
 };

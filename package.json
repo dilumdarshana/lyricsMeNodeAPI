@@ -1,33 +1,39 @@
 {
-  "name": "lyricsme-api",
-  "version": "1.0.0",
-  "description": "API Node version for LyricsMe",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha -t 6000 --require babel-register api/tests"
-  },
-  "keywords": [
-    "Lyrics",
-    "nodejs"
-  ],
-  "author": "Dilum Darshana",
-  "license": "ISC",
-  "dependencies": {
-    "babel": "^6.23.0",
-    "bcrypt": "^1.0.3",
-    "body-parser": "^1.18.2",
-    "express": "^4.16.2",
-    "jsonwebtoken": "^8.1.0",
-    "mongoose": "^4.13.7",
-    "morgan": "^1.9.0"
-  },
-  "devDependencies": {
-    "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0",
-    "chai": "^4.1.2",
-    "gulp": "^3.9.1",
-    "gulp-env": "^0.4.0",
-    "gulp-nodemon": "^2.2.1",
-    "mocha": "^5.1.1"
-  }
+    "name": "lyricsme-api",
+    "version": "1.0.0",
+    "description": "API Node version for LyricsMe",
+    "main": "index.js",
+    "scripts": {
+        "server": "nodemon --exec npm run prod",
+        "prod": "babel-node server",
+        "test": "mocha -t 6000 --require babel-register api/tests"
+    },
+    "keywords": [
+        "Lyrics",
+        "nodejs"
+    ],
+    "author": "Dilum Darshana",
+    "license": "ISC",
+    "dependencies": {
+        "bcrypt": "^1.0.3",
+        "body-parser": "^1.18.2",
+        "express": "^4.16.2",
+        "express-winston": "^2.5.1",
+        "jsonwebtoken": "^8.1.0",
+        "mongoose": "^4.13.7",
+        "morgan": "^1.9.0",
+        "winston": "^3.0.0"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-core": "^6.26.3",
+        "babel-loader": "^7.1.4",
+        "babel-preset-env": "^1.7.0",
+        "chai": "^4.1.2",
+        "mocha": "^5.1.1",
+        "nodemon": "^1.17.5",
+        "supertest": "^3.1.0",
+        "webpack": "^4.14.0",
+        "webpack-cli": "^3.0.8"
+    }
 }

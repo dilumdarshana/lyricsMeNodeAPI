@@ -1,6 +1,6 @@
 import { artistModel } from '../models';
 
-class lyricsContoller {
+class LyricsContoller {
 
     
     createLyrics(req, res) {
@@ -20,4 +20,4 @@ class lyricsContoller {
     }
 }
 
-module.exports = lyricsContoller;
+module.exports = LyricsContoller;

@@ -1,6 +1,7 @@
 'use strict';
 
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 const albumSchema = new mongoose.Schema({
     artist_id: {
@@ -20,7 +21,7 @@ const albumSchema = new mongoose.Schema({
         default: null
     },
     active: {
-        type: boolean,
+        type: Boolean,
         default: true
     },
     date_updated: {
@@ -33,7 +34,7 @@ const albumSchema = new mongoose.Schema({
 }, { collection: 'albums' });
 
 // on update
-artistSchema.pre('update', function (next) {
+albumSchema.pre('update', function (next) {
     this.date_updated = new Date();
     next();
 });

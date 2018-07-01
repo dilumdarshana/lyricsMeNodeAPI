@@ -1,6 +1,6 @@
 import { artistModel } from '../models';
 
-class albumContoller {
+class AlbumContoller {
 
     
     createAlbum(req, res) {
@@ -20,4 +20,4 @@ class albumContoller {
     }
 }
 
-module.exports = albumContoller;
+module.exports = AlbumContoller;

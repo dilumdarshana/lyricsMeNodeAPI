@@ -1,15 +1,18 @@
 // import required packages
-const express = require('express');
-const morgan = require('morgan');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+
+import express from 'express';
+import morgan from 'morgan';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import expressWinston from 'express-winston';
+import winston from 'winston';
 const config = require('./config').local;
+
+// import routers
+import Routes from './api/routes';
 
 // define express instence
 const app = express();
-
-// import routers
-const routes = require('./api/routes');
 
 // connect to mongodb
 mongoose.connect(config.dbConnection, { useMongoClient: true });
@@ -29,25 +32,8 @@ app.use(bodyParser.urlencoded({
 // body-parser use to convert http post data to json
 app.use(bodyParser.json());
 
-// resolve CORS access
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*'); // allow all origins
-    res.header(
-        'Access-Control-Allow-Headers',
-        'Origin, X-Requested-Width, Content-Type, Accept, Authorization'
-    );
-
-    // resolving pre-flights from the browser
-    if (req.method === 'OPTIONS') {
-        res.header('Access-Control-Allow-Methods', 'POST, PUT, PATCH, GET, DELETE');
-        return res.status(200).json({}); // sending emtpy json with success status
-    }
-
-    next(); // ask to procceed the rest of the routes just in case
-});
-
-// routes
-app.use('/api/v1/', routes);
+// Routes
+Routes(app);
 
 /*
  * Error handling for undefined route requests
@@ -65,7 +51,7 @@ app.use((error, req, res, next) => {
             message: error.message,
             status: error.status
         }
-    })
+    });
 });
 
 // export app to make available for outside

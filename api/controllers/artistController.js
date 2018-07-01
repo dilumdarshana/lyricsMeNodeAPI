@@ -1,10 +1,23 @@
-import { artistModel } from '../models';
+import { ArtistModel } from './../models';
 
-class artistContoller {
+class ArtistContoller {
 
     
-    createArtist(req, res) {
-        res.status(200).json();
+    createArtist (req, res) {
+        const { name, image } = req.body;
+        const artist = {
+            name,
+            image
+        };
+
+        ArtistModel.create(artist)
+            .then(result => {
+                res.status(200).json(result);
+            })
+            .catch (error => {
+                console.log('error > ', error)
+                res.status(400).json(error);
+            });
     }
 
     updateArtist(req, res) {
@@ -12,12 +25,21 @@ class artistContoller {
     }
 
     getArtist(req, res) {
-        res.status(200).json();
+        res.status(200).json('hellooo');
     }
 
     deleteArtist(req, res) {
-        res.status(200).json();
+        const { filter } = req.body;
+
+        ArtistModel.delete(filter)
+            .then(result => {
+                res.status(200).json(result);
+            })
+            .catch (error => {
+                console.log('error > ', error)
+                res.status(400).json(error);
+            });
     }
 }
 
-module.exports = artistContoller;
+export default new ArtistContoller;
